@@ -42,10 +42,10 @@ namespace ColorDetector
             pictureBox3.Image = img;
 
             int lowVal = 0;
-            int highVal = 360;
-            double s = 0.15;
-            double lowL = 0.05;
-            double highL = 0.95;
+            int highVal = 359;
+            double s = 0.45;
+            double lowL = 0.20;
+            double highL = 0.90;
             Boolean flag = false;
             if (!(String.Equals(color, "white", StringComparison.OrdinalIgnoreCase)) && !(String.Equals(color, "black", StringComparison.OrdinalIgnoreCase)) && !(String.Equals(color, "gray", StringComparison.OrdinalIgnoreCase)))
             {
@@ -141,13 +141,17 @@ namespace ColorDetector
                         break;
                 }
             }
-            //else if (String.Equals(color, "grey", StringComparison.OrdinalIgnoreCase))
+            //else if (String.Equals(color, "gray", StringComparison.OrdinalIgnoreCase))
             //{
             //    for (int i = 0; i < img.Width; i++)
             //    {
             //        for (int j = 0; j < img.Height; j++)
             //        {
-            //            if (img.GetPixel(i, j).R.Equals((img.GetPixel(i, j).G).Equals(img.GetPixel(i, j).B)))
+
+            //            int redVal = img.GetPixel(i, j).R;
+            //            int greenVal = img.GetPixel(i, j).G;
+            //            int blueVal = img.GetPixel(i, j).B;
+            //            if (redVal == greenVal && greenVal == blueVal)
             //            {
             //                flag = true;
             //                break;
@@ -163,7 +167,7 @@ namespace ColorDetector
                 {
                     for (int j = 0; j < img.Height; j++)
                     {
-                        if (img.GetPixel(i, j).GetHue() >= lowVal && img.GetPixel(i, j).GetHue() <= highVal && img.GetPixel(i, j).GetSaturation() < 0.5 && img.GetPixel(i, j).GetBrightness() >= 0.65)
+                        if (img.GetPixel(i, j).GetHue() >= lowVal && img.GetPixel(i, j).GetHue() <= highVal && img.GetPixel(i, j).GetSaturation() < 0.15 && img.GetPixel(i, j).GetBrightness() >= 0.3)
                         {
                             flag = true;
                             break;
@@ -193,6 +197,7 @@ namespace ColorDetector
                 pictureBox1.Image = null;
                 pictureBox2.Image = null;
                 pictureBox3.Image = null;
+                label5.Text = "";
 
                 img = new Bitmap(of.FileName);
                 pictureBox1.Image = img;
@@ -205,7 +210,8 @@ namespace ColorDetector
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (colorIsPresent(img, comboBox1.SelectedText) == true)
+            String color = comboBox1.SelectedItem.ToString();
+            if (colorIsPresent(img, color) == true)
             {
                 label5.Text = "Found";
             }
